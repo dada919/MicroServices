@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: 
+      context: ./blog
+      dockerfile: Dockerfile
+    ports:
+      - "5100:5100"
+    environment:
+      - VITE_API_URL=http://localhost:3001
+    depends_on:
+      - backend
+    volumes:
+      - ./blog:/app
+      - /app/node_modules
+
+  backend:
+    build: 
+      context: ./backend-node
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - database
+    volumes:
+      - ./backend-node:/app
+      - /app/node_modules
+
+  database:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql_data:
