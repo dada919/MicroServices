@@ -7,16 +7,21 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+const dbConfig = process.env.NODE_ENV === 'test' 
+  ? {
+      host: 'mysql', // Nom du service dans GitLab CI
+      user: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE
+    }
+  : {
+      host: 'database', // votre config normale
+      user: 'myuser',
+      password: 'admin1234',
+      database: 'blogdb'
+    };
+
+const pool = mysql.createPool(dbConfig);
 
 function executeQuery(sql, params = []) {
     return new Promise((resolve, reject) => {

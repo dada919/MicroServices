@@ -7,7 +7,7 @@ stages:
 
 variables:
   MYSQL_DATABASE: blogdb
-  MYSQL_ROOT_PASSWORD: root
+  MYSQL_ROOT_PASSWORD: admin1234
   MYSQL_USER: myuser
   MYSQL_PASSWORD: admin1234
 
@@ -16,16 +16,24 @@ services:
 
 cache:
   paths:
-    - node_modules/
+    - backend-node/node_modules/
 
 before_script:
   - cd backend-node
   - npm install
+  - npm install -g jest
+  - |
+    until nc -z -v -w30 mysql 3306
+    do
+      echo "En attente de la connexion MySQL..."
+      sleep 1
+    done
+  - echo "MySQL est prêt!"
 
 test:
   stage: test
   script:
-    - npm test
+    - NODE_ENV=test npm test
   only:
     - main
     - merge_requests
@@ -41,6 +49,5 @@ deploy:
   stage: deploy
   script:
     - echo "Déploiement de l'application..."
-
   only:
-    - main 
+    - main
