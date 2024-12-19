@@ -19,7 +19,7 @@ cache:
     - node_modules/
 
 before_script:
-  - cd backend
+  - cd backend-node
   - npm install
 
 test:
