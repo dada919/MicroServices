@@ -1,16 +1,22 @@
 const mysql = require('mysql2/promise');
-const { db } = require('./testConfig');
+
+const dbConfig = {
+  host: 'database',
+  user: 'myuser',
+  password: 'admin1234',
+  database: 'blogdb',
+};
 
 beforeAll(async () => {
   // Créer la base de test si elle n'existe pas
   const connection = await mysql.createConnection({
-    host: db.host,
-    user: db.user,
-    password: db.password,
+    host: dbConfig.host,
+    user: dbConfig.user,
+    password: dbConfig.password,
   });
 
-  await connection.query(`CREATE DATABASE IF NOT EXISTS ${db.database}`);
-  await connection.query(`USE ${db.database}`);
+  await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`);
+  await connection.query(`USE ${dbConfig.database}`);
   
   // Créer la table blogs
   await connection.query(`
@@ -29,12 +35,12 @@ beforeAll(async () => {
 
 afterAll(async () => {
   const connection = await mysql.createConnection({
-    host: db.host,
-    user: db.user,
-    password: db.password,
+    host: dbConfig.host,
+    user: dbConfig.user,
+    password: dbConfig.password,
   });
 
   // Nettoyer la base de test
-  await connection.query(`DROP DATABASE IF EXISTS ${db.database}`);
+  await connection.query(`DROP DATABASE IF EXISTS ${dbConfig.database}`);
   await connection.end();
 }); 
