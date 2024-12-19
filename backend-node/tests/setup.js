@@ -14,14 +14,9 @@ beforeAll(async () => {
     user: dbConfig.user,
     password: dbConfig.password,
   });
-
+  
   // Créer la base de données si elle n'existe pas
   await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`);
-  
-  // Créer l'utilisateur si nécessaire et lui accorder des privilèges
-  await connection.query(`CREATE USER IF NOT EXISTS 'myuser'@'%' IDENTIFIED BY 'admin1234';`);
-  await connection.query(`GRANT ALL PRIVILEGES ON ${dbConfig.database}.* TO 'myuser'@'%';`);
-  await connection.query(`FLUSH PRIVILEGES;`);
 
   // Utiliser la base de données
   await connection.query(`USE ${dbConfig.database}`);
