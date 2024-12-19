@@ -1,8 +1,8 @@
 image: node:16
 
 stages:
-  - test
   - build
+  - test
   - deploy
 
 variables:
@@ -21,24 +21,6 @@ cache:
 before_script:
   - cd backend-node
   - npm install
-  - |
-    echo "Attente de MySQL..."
-    sleep 15  # Attendre 15 secondes que MySQL démarre
-    echo "MySQL devrait être prêt!"
-
-test:
-  stage: test
-  variables:
-    # Configuration de la connexion à MySQL
-    DB_HOST: mysql
-    DB_USER: myuser
-    DB_PASSWORD: admin1234
-    DB_DATABASE: blogdb
-  script:
-    - NODE_ENV=test npm test
-  only:
-    - main
-    - merge_requests
 
 build:
   stage: build
@@ -46,6 +28,16 @@ build:
     - docker build -t blog-api .
   only:
     - main
+
+test:
+  stage: test
+  script:
+    - docker run --name blog-api-test -d -e MYSQL_DATABASE=$MYSQL_DATABASE -e MYSQL_USER=$MYSQL_USER -e MYSQL_PASSWORD=$MYSQL_PASSWORD -p 3306:3306 mysql:8.0
+    - sleep 15
+    - docker run --rm --network host blog-api npm test
+  only:
+    - main
+    - merge_requests
 
 deploy:
   stage: deploy
