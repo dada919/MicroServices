@@ -117,3 +117,5 @@ app.listen(PORT, '0.0.0.0', () => {
 process.on('uncaughtException', (error) => {
     console.error('Erreur non capturée', error);
 });
+
+module.exports = app;

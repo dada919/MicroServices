@@ -1,0 +1,46 @@
+image: node:16
+
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  MYSQL_DATABASE: blogdb
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_USER: myuser
+  MYSQL_PASSWORD: admin1234
+
+services:
+  - mysql:8.0
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - cd backend
+  - npm install
+
+test:
+  stage: test
+  script:
+    - npm test
+  only:
+    - main
+    - merge_requests
+
+build:
+  stage: build
+  script:
+    - docker build -t blog-api .
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Déploiement de l'application..."
+
+  only:
+    - main 
