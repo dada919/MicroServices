@@ -10,7 +10,7 @@ stages:
 
 variables:
   MYSQL_DATABASE: blogdb
-  MYSQL_ROOT_PASSWORD: admin1234
+  MYSQL_ROOT_PASSWORD: root
   MYSQL_USER: myuser
   MYSQL_PASSWORD: admin1234
 
