@@ -4,8 +4,8 @@ services:
   - docker:dind
 
 stages:
-  - build
   - test
+  - build
   - deploy
 
 variables:
