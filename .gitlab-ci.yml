@@ -28,10 +28,7 @@ build:
 test:
   stage: test
   script:
-    - docker-compose up -d
-    - sleep 15
-    - docker-compose exec web npm test
-    - docker-compose down
+    - npm test
   only:
     - main
     - merge_requests
