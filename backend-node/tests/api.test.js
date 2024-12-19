@@ -4,12 +4,6 @@ const request = require('supertest');
 const app = require('../app'); // Assurez-vous que votre app Express est exportée
 
 describe('Tests API Blog', () => {
-  beforeEach(async () => {
-    // Nettoyer la table avant chaque test
-    const pool = require('../app').pool;
-    await pool.query('DELETE FROM blog');
-  });
-
   // Test GET /all-blogs
   test('GET /all-blogs devrait retourner tous les blogs', async () => {
     const response = await request(app).get('/all-blogs');
@@ -32,11 +26,18 @@ describe('Tests API Blog', () => {
 
     expect(response.statusCode).toBe(201);
     expect(response.body).toHaveProperty('id');
+
+    // Supprimer le blog créé après le test
+    const blogId = response.body.id;
+    await request(app).delete(`/blogs/${blogId}`);
+
+    // Vérifier que le blog a bien été supprimé
+    const checkResponse = await request(app).get(`/blogs/${blogId}`);
+    expect(checkResponse.statusCode).toBe(404); // S'assurer que le blog n'existe plus
   });
 
   // Test GET /blogs/:id
   test('GET /blogs/:id devrait retourner un blog spécifique', async () => {
-    // D'abord créer un blog pour le tester
     const nouveauBlog = {
       titre: 'Test Blog',
       description: 'Description test',
@@ -53,5 +54,8 @@ describe('Tests API Blog', () => {
     const response = await request(app).get(`/blogs/${blogId}`);
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty('id', blogId);
+
+    // Supprimer le blog créé après le test
+    await request(app).delete(`/blogs/${blogId}`);
   });
 }); 

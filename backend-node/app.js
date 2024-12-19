@@ -9,16 +9,16 @@ app.use(cors());
 
 const dbConfig = process.env.NODE_ENV === 'test' 
   ? {
-      host: process.env.DB_HOST || 'mysql',
-      user: process.env.DB_USER || 'myuser',
-      password: process.env.DB_PASSWORD || 'admin1234',
-      database: process.env.DB_DATABASE || 'blogdb'
+      host: 'localhost',
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME
     }
   : {
       host: 'database',
-      user: 'myuser',
-      password: 'admin1234',
-      database: 'blogdb'
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME
     };
 
 const pool = mysql.createPool(dbConfig);
@@ -59,7 +59,7 @@ app.post('/blogs', async (req, res) => {
         const { titre, description, image_url, pseudo } = req.body;
         const query = 'INSERT INTO blog (titre, description, image_url, pseudo) VALUES (?, ?, ?, ?)';
         const results = await executeQuery(query, [titre, description, image_url, pseudo]);
-        res.status(201).send(`Entrée ajoutée avec l'ID: ${results.insertId}`);
+        res.status(201).json({ id: results.insertId });
     } catch (err) {
         console.error(err);
         res.status(500).send('Erreur lors de l\'ajout de l\'entrée : ' + err.message);

@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 
 const dbConfig = {
-  host: 'database',
+  host: 'localhost',
   user: 'myuser',
   password: 'admin1234',
   database: 'blogdb',
@@ -41,6 +41,5 @@ afterAll(async () => {
   });
 
   // Nettoyer la base de test
-  await connection.query(`DROP DATABASE IF EXISTS ${dbConfig.database}`);
   await connection.end();
 }); 
