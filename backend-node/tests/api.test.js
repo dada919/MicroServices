@@ -4,6 +4,12 @@ const request = require('supertest');
 const app = require('../app'); // Assurez-vous que votre app Express est exportée
 
 describe('Tests API Blog', () => {
+  beforeEach(async () => {
+    // Nettoyer la table avant chaque test
+    const pool = require('../app').pool;
+    await pool.query('DELETE FROM blog');
+  });
+
   // Test GET /all-blogs
   test('GET /all-blogs devrait retourner tous les blogs', async () => {
     const response = await request(app).get('/all-blogs');
