@@ -4,8 +4,8 @@ services:
   - docker:dind
 
 stages:
-  - test
   - build
+  - test
   - deploy
 
 variables:
@@ -28,7 +28,10 @@ build:
 test:
   stage: test
   script:
-    - npm test
+    - docker-compose up -d
+    - sleep 15
+    - docker-compose exec backend npm test
+    - docker-compose down
   only:
     - main
     - merge_requests
