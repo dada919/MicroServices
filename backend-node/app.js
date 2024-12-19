@@ -13,13 +13,13 @@ const dbConfig = process.env.NODE_ENV === 'test'
       host: 'localhost',
       user: 'root',
       password: 'root',
-      database: process.env.DB_NAME
+      database: 'blogdb'
     }
   : {
       host: 'database',
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME
+      user: 'myuser',
+      password: 'admin1234',
+      database: 'blogdb'
     };
 
 const pool = mysql.createPool(dbConfig);
