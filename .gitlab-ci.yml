@@ -19,13 +19,14 @@ cache:
     - backend-node/node_modules/
 
 before_script:
+  - apk add --no-cache docker-compose
   - cd backend-node
   - npm install
 
 build:
   stage: build
   script:
-    - docker build -t blog-api .
+    - docker-compose build
   only:
     - main
 
