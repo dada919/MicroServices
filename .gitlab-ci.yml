@@ -1,4 +1,7 @@
-image: node:16
+image: docker/compose:1.29.2
+
+services:
+  - docker:dind
 
 stages:
   - build
@@ -6,20 +9,14 @@ stages:
   - deploy
 
 variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
   MYSQL_DATABASE: blogdb
   MYSQL_ROOT_PASSWORD: admin1234
   MYSQL_USER: myuser
   MYSQL_PASSWORD: admin1234
 
-services:
-  - mysql:8.0
-
-cache:
-  paths:
-    - backend-node/node_modules/
-
 before_script:
-  - apk add --no-cache docker-compose
   - cd backend-node
   - npm install
 
@@ -33,9 +30,10 @@ build:
 test:
   stage: test
   script:
-    - docker run --name blog-api-test -d -e MYSQL_DATABASE=$MYSQL_DATABASE -e MYSQL_USER=$MYSQL_USER -e MYSQL_PASSWORD=$MYSQL_PASSWORD -p 3306:3306 mysql:8.0
+    - docker-compose up -d
     - sleep 15
-    - docker run --rm --network host blog-api npm test
+    - docker-compose exec web npm test
+    - docker-compose down
   only:
     - main
     - merge_requests
