@@ -7,6 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
 const dbConfig = process.env.NODE_ENV === 'test' 
   ? {
       host: 'localhost',
