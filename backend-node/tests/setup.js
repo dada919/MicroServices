@@ -44,6 +44,5 @@ afterAll(async () => {
   });
 
   // Nettoyer la base de test
-  await connection.query(`DROP DATABASE IF EXISTS ${dbConfig.database}`); // Optionnel : supprimer la base de données après les tests
   await connection.end();
 }); 
