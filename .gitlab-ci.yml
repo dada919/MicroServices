@@ -21,7 +21,6 @@ cache:
 before_script:
   - cd backend-node
   - npm install
-  - npm install -g jest
   - |
     echo "Attente de MySQL..."
     sleep 15  # Attendre 15 secondes que MySQL démarre

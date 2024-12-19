@@ -124,3 +124,9 @@ process.on('uncaughtException', (error) => {
 });
 
 module.exports = app;
+
+if (require.main === module) {
+  app.listen(3001, () => {
+    console.log('Serveur démarré sur http://localhost:3001');
+  });
+}
