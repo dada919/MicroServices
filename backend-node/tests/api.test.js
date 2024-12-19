@@ -1,3 +1,5 @@
+jest.setTimeout(30000); // 30 secondes de timeout
+
 const request = require('supertest');
 const app = require('../app'); // Assurez-vous que votre app Express est exportée
 

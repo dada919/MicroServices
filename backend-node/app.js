@@ -9,13 +9,13 @@ app.use(cors());
 
 const dbConfig = process.env.NODE_ENV === 'test' 
   ? {
-      host: 'mysql', // Nom du service dans GitLab CI
-      user: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      database: process.env.MYSQL_DATABASE
+      host: process.env.DB_HOST || 'mysql',
+      user: process.env.DB_USER || 'myuser',
+      password: process.env.DB_PASSWORD || 'admin1234',
+      database: process.env.DB_DATABASE || 'blogdb'
     }
   : {
-      host: 'database', // votre config normale
+      host: 'database',
       user: 'myuser',
       password: 'admin1234',
       database: 'blogdb'
