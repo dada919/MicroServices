@@ -15,9 +15,17 @@ beforeAll(async () => {
     password: dbConfig.password,
   });
 
+  // Créer la base de données si elle n'existe pas
   await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`);
-  await connection.query(`USE ${dbConfig.database}`);
   
+  // Créer l'utilisateur si nécessaire et lui accorder des privilèges
+  await connection.query(`CREATE USER IF NOT EXISTS 'myuser'@'%' IDENTIFIED BY 'admin1234';`);
+  await connection.query(`GRANT ALL PRIVILEGES ON ${dbConfig.database}.* TO 'myuser'@'%';`);
+  await connection.query(`FLUSH PRIVILEGES;`);
+
+  // Utiliser la base de données
+  await connection.query(`USE ${dbConfig.database}`);
+
   // Créer la table blogs
   await connection.query(`
     CREATE TABLE IF NOT EXISTS blog (
@@ -41,5 +49,6 @@ afterAll(async () => {
   });
 
   // Nettoyer la base de test
+  await connection.query(`DROP DATABASE IF EXISTS ${dbConfig.database}`); // Optionnel : supprimer la base de données après les tests
   await connection.end();
 }); 
