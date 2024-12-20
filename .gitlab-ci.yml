@@ -34,7 +34,7 @@ build:
         --cache-from $CI_REGISTRY_IMAGE/blog-front:latest \
         --tag $CI_REGISTRY_IMAGE/blog-front:$CI_COMMIT_SHA \
         --tag $CI_REGISTRY_IMAGE/blog-front:latest \
-        -f blog/blog/Dockerfile ./blog/blog
+        -f blog/Dockerfile ./blog
     - |
       docker build \
         --cache-from $CI_REGISTRY_IMAGE/blog-backend:latest \
