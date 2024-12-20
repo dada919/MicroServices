@@ -21,18 +21,41 @@ before_script:
 
 build:
   stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_BUILDKIT: 1
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker-compose build
-  only:
-    - main
+    - |
+      docker build \
+        --cache-from $CI_REGISTRY_IMAGE/blog-front:latest \
+        --tag $CI_REGISTRY_IMAGE/blog-front:$CI_COMMIT_SHA \
+        --tag $CI_REGISTRY_IMAGE/blog-front:latest \
+        -f blog/blog/Dockerfile ./blog/front
+    - |
+      docker build \
+        --cache-from $CI_REGISTRY_IMAGE/blog-backend:latest \
+        --tag $CI_REGISTRY_IMAGE/blog-backend:$CI_COMMIT_SHA \
+        --tag $CI_REGISTRY_IMAGE/blog-backend:latest \
+        -f blog/backend-node/Dockerfile ./blog/backend
+    - docker push $CI_REGISTRY_IMAGE/blog-front:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE/blog-front:latest
+    - docker push $CI_REGISTRY_IMAGE/blog-backend:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE/blog-backend:latest
 
 trivy_scan:
   stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - wget https://github.com/aquasecurity/trivy/releases/download/v0.43.1/trivy_0.43.1_Linux-64bit.tar.gz
-    - tar zxvf trivy_0.43.1_Linux-64bit.tar.gz
-    - mv trivy /usr/local/bin/
-    - ./trivy image my-backend:latest
+    - docker run --rm aquasec/trivy:latest image $CI_REGISTRY_IMAGE/blog-front:$CI_COMMIT_SHA
+    - docker run --rm aquasec/trivy:latest image $CI_REGISTRY_IMAGE/blog-backend:$CI_COMMIT_SHA
   only:
     - main
 
