@@ -15,12 +15,15 @@ variables:
   MYSQL_ROOT_PASSWORD: root
   MYSQL_USER: myuser
   MYSQL_PASSWORD: admin1234
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
   DOCKER_BUILDKIT: 1
-  DOCKER_TLS_CERTDIR: "/certs"
 
 before_script:
   - cd backend-node
   - npm install
+  - docker info
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 build:
   stage: build
@@ -56,8 +59,8 @@ trivy_scan:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker info
   script:
-    - docker run --rm aquasec/trivy:latest image $CI_REGISTRY_IMAGE/blog-front:$CI_COMMIT_SHA
-    - docker run --rm aquasec/trivy:latest image $CI_REGISTRY_IMAGE/blog-backend:$CI_COMMIT_SHA
+    - docker run --rm aquasec/trivy:latest image --scanners vuln $CI_REGISTRY_IMAGE/blog-front:$CI_COMMIT_SHA
+    - docker run --rm aquasec/trivy:latest image --scanners vuln $CI_REGISTRY_IMAGE/blog-backend:$CI_COMMIT_SHA
   only:
     - main
 
