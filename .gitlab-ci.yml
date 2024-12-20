@@ -16,8 +16,6 @@ variables:
   MYSQL_USER: myuser
   MYSQL_PASSWORD: admin1234
   DOCKER_BUILDKIT: 1
-  DOCKER_TLS_CERTDIR: "/certs"
-  DOCKER_TLS_CERTDIR: ""
 
 before_script:
   - cd backend-node
