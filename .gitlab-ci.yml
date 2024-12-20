@@ -47,7 +47,7 @@ build:
     - docker push $CI_REGISTRY_IMAGE/blog-backend:latest
 
 trivy_scan:
-  stage: build
+  stage: trivy-scan
   image: docker:latest
   services:
     - docker:dind
