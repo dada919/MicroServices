@@ -18,6 +18,7 @@ variables:
 before_script:
   - cd backend-node
   - npm install
+*
 
 build:
   stage: build
