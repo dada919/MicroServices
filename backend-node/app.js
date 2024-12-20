@@ -9,7 +9,7 @@ app.use(cors());
 
 const dbConfig = process.env.NODE_ENV === 'test' 
   ? {
-      host: 'database',
+      host: 'localhost',
       user: 'myuser',
       password: 'admin1234',
       database: 'blogdb'
