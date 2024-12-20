@@ -4,9 +4,9 @@ services:
   - docker:dind
 
 stages:
+  - test
   - build
   - trivy-scan
-  - test
   - deploy
 
 variables:
