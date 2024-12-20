@@ -4,8 +4,8 @@ services:
   - docker:dind
 
 stages:
-  - test
   - build
+  - trivy-scan
   - deploy
 
 variables:
@@ -22,6 +22,14 @@ build:
   stage: build
   script:
     - docker-compose build
+  only:
+    - main
+
+trivy_scan:
+  stage: build
+  script:
+    - docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest --quiet --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress --format table --output trivy-report.txt your_image_name:latest
+    - cat trivy-report.txt
   only:
     - main
 
