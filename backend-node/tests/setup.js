@@ -18,6 +18,7 @@ beforeAll(async () => {
   // Créer la base de données si elle n'existe pas
   await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`);
 
+  
   // Utiliser la base de données
   await connection.query(`USE ${dbConfig.database}`);
 
