@@ -29,7 +29,7 @@ test:
   stage: test
   script:
     - docker-compose up -d
-    - sleep 100
+    - sleep 60
     - docker-compose exec backend npm test
     - docker-compose down
   only:
