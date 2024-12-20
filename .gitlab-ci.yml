@@ -29,8 +29,10 @@ build:
 trivy_scan:
   stage: build
   script:
-    - docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest --quiet --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress --format table --output trivy-report.txt your_image_name:latest
-    - cat trivy-report.txt
+    - wget https://github.com/aquasecurity/trivy/releases/download/v0.43.1/trivy_0.43.1_Linux-64bit.tar.gz
+    - tar zxvf trivy_0.43.1_Linux-64bit.tar.gz
+    - mv trivy /usr/local/bin/
+    - ./trivy image my-backend:latest
   only:
     - main
 
