@@ -4,9 +4,9 @@ services:
   - docker:dind
 
 stages:
-  - test
   - build
   - trivy-scan
+  - test
   - deploy
 
 variables:
@@ -73,6 +73,6 @@ test:
 deploy:
   stage: deploy
   script:
-    - echo "Déploiement de l'application..."
+    - docker-compose up -d
   only:
     - main
