@@ -14,6 +14,12 @@ services:
     volumes:
       - ./blog:/app
       - /app/node_modules
+    networks:
+      - blog-network
+    labels:
+      - "com.docker.compose.project=blog"
+      - "com.docker.compose.service=frontend"
+      - "com.docker.compose.depends.on=backend"
 
   backend:
     build: 
@@ -26,6 +32,12 @@ services:
     volumes:
       - ./backend-node:/app
       - /app/node_modules
+    networks:
+      - blog-network
+    labels:
+      - "com.docker.compose.project=blog"
+      - "com.docker.compose.service=backend"
+      - "com.docker.compose.depends.on=database"
 
   database:
     image: mysql:8.0
@@ -36,6 +48,61 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - blog-network
+    labels:
+      - "com.docker.compose.project=blog"
+      - "com.docker.compose.service=database"
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer_data:/data
+    ports:
+      - "9000:9000"
+    networks:
+      - blog-network
+    labels:
+      - "com.docker.compose.project=blog"
+      - "com.docker.compose.service=portainer"
+
+  weave-scope:
+    image: weaveworks/scope:1.13.2
+    container_name: weave-scope
+    restart: unless-stopped
+    privileged: true
+    pid: "host"
+    ports:
+      - "4040:4040"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc:/host/proc:ro
+      - /sys/kernel/debug:/sys/kernel/debug:ro
+    environment:
+      - SCOPE_HOSTNAME=weave-scope
+    command:
+      - "--probe.docker=true"
+      - "--probe.docker.bridge=docker0"
+      - "--probe.processes=true"
+      - "--probe.proc.spy=true"
+      - "--probe.spy.interval=2s"
+      - "--app.weave.addr=127.0.0.1:4040"
+    networks:
+      - blog-network
+    labels:
+      - "com.docker.compose.project=blog"
+      - "com.docker.compose.service=weave-scope"
 
 volumes:
   mysql_data:
+  portainer_data:
+
+networks:
+  blog-network:
+    driver: bridge
