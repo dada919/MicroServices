@@ -18,11 +18,30 @@ Pour lancer le projet, suivez les étapes ci-dessous :
 
 Une fois que les conteneurs sont en cours d'exécution, vous pouvez accéder aux différents services via les ports suivants :
 
-- **Frontend** : [http://localhost:5100](http://localhost:5100)
-- **Backend** : [http://localhost:3001](http://localhost:3001)
-- **Base de données (MySQL)** : [http://localhost:3306](http://localhost:3306)
-- **Portainer** : [http://localhost:9000](http://localhost:9000) (pour la gestion des conteneurs)
-- **Weave Scope** : [http://localhost:4040](http://localhost:4040) (pour la visualisation des services)
+### Côté Client (Frontend)
+- **Port** : 5100
+- **URL d'accès** : [http://localhost:5100](http://localhost:5100)
+- **Description** : Ce port est utilisé pour l'application frontend.
+
+### Côté Backend
+- **Port** : 3001
+- **URL d'accès** : [http://localhost:3001](http://localhost:3001)
+- **Description** : Ce port est utilisé pour l'API backend.
+
+### Base de Données (MySQL)
+- **Port** : 3306
+- **URL d'accès** : [http://localhost:3306](http://localhost:3306)
+- **Description** : Ce port est utilisé pour accéder à la base de données MySQL.
+
+### Portainer
+- **Port** : 9000
+- **URL d'accès** : [http://localhost:9000](http://localhost:9000)
+- **Description** : Ce port est utilisé pour accéder à Portainer, un outil de gestion des conteneurs Docker.
+
+### Weave Scope
+- **Port** : 4040
+- **URL d'accès** : [http://localhost:4040](http://localhost:4040)
+- **Description** : Ce port est utilisé pour accéder à Weave Scope, un outil de visualisation des services.
 
 
 ## Routes de l'API Backend

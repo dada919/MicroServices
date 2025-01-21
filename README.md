@@ -17,7 +17,7 @@
   - ✅ Les différents composants/services de votre application.
   ![Architecture](./Screen/WeaveScope.PNG)
   - ✅ Liens entre ces différents composants/services : protocoles et requêtes types (POST, GET,… en curl/json format).
-  - ✅❌ Les ports exposés sont mis en valeur (côté client et côté backend).
+  - ✅ Les ports exposés sont mis en valeur (côté client et côté backend).
 - ✅ Votre README.md à la racine de votre GitHub contient les explications nécessaires pour build et run votre projet ainsi que des screenshots de vos fonctionnalités ainsi que des critères demandés.
 
 - [Voir le README du projet](./Monitoring/README.md)
@@ -32,8 +32,8 @@
 - Votre solution dispose d’un système de gestion de files d’attente ou de push notifications.
 ![Architecture](./Screen/WeaveScope-Dashboard.PNG)
 
-## Tests (4 points)
 
+## Tests (4 points)
 
 - Vous avez au minimum des tests de conteneurs (bash ou healthcheck) qui :
   - ❌ Testent la santé de vos conteneurs.
@@ -43,6 +43,7 @@
 - ❌ Vous avez mis en place des tests de montée en charge simples de vos services.
 - ✅ Vous avez un parcours de test end-to-end.
 - [Voir le README Cypress](./Cypress/README.md)
+
 
 ## Continuous Integration/Deployment with GitHub (4 points)
 
