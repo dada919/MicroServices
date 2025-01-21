@@ -41,7 +41,8 @@
   - ✅ Testent le bon fonctionnement de votre base de données.
 - ✅ Vous avez testé unitairement au minimum 2 composants de votre code base.
 - ❌ Vous avez mis en place des tests de montée en charge simples de vos services.
-- ❌ Vous avez un parcours de test end-to-end.
+- ✅ Vous avez un parcours de test end-to-end.
+- [Voir le README Cypress](./Cypress/README.md)
 
 ## Continuous Integration/Deployment with GitHub (4 points)
 
