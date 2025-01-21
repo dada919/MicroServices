@@ -1,59 +1,26 @@
-# Projet MicroServices
+# Projet Monitoring
 
-## Composants techniques de base (4 points)
+## Lancement du Projet
 
-1. **Frontend** : Votre projet contient un frontend avec au minimum deux routes.
-2. **Backend** : Votre projet contient un backend avec une base de données dans un conteneur spécifique. Vous expliquerez le choix de votre technologie de base de données (relationnelles ou non relationnelles).
-3. **Base de données** : Votre base de données est fonctionnelle et composée d’au moins une table/collection ainsi qu’un schéma explicite.
-4. **Architecture Docker** :
-   - Votre projet contient au moins 2 Dockerfiles et un fichier `docker-compose.yml`.
-   - Votre projet contient un réseau Docker.
-   - Vous avez poussé au moins 2 images Docker sur un registre de conteneurs (type Docker Hub).
-   - Votre projet est accessible en ligne publiquement sur un gestionnaire de version (type GitHub, Bitbucket, GitLab…).
+Pour lancer le projet, suivez les étapes ci-dessous :
 
-## Installation
-
-1. Clonez le dépôt :
+1. **Accédez au répertoire du projet** :
    ```bash
-   git clone <url-du-repo>
-   cd <nom-du-repo>
+   cd Monitoring
    ```
 
-2. Installez les dépendances :
-   - Pour le frontend :
-     ```bash
-     cd blog
-     npm install
-     ```
-
-   - Pour le backend :
-     ```bash
-     cd backend-node
-     npm install
-     ```
-
-## Lancement du projet
-
-1. Démarrez les conteneurs Docker :
+2. **Démarrez les conteneurs avec Docker Compose** :
    ```bash
-   docker-compose up
+   docker-compose up -d
    ```
 
-2. Accédez à l'application :
-   - Frontend : [http://localhost:5100](http://localhost:5100)
-   - Backend : [http://localhost:3001](http://localhost:3001)
+## Ports Exposés
 
-## Tests
+Une fois que les conteneurs sont en cours d'exécution, vous pouvez accéder aux différents services via les ports suivants :
 
-Pour exécuter les tests, utilisez la commande suivante dans le répertoire du backend :
-```bash
-npm test
-```
+- **Frontend** : [http://localhost:5100](http://localhost:5100)
+- **Backend** : [http://localhost:3001](http://localhost:3001)
+- **Base de données (MySQL)** : [http://localhost:3306](http://localhost:3306)
+- **Portainer** : [http://localhost:9000](http://localhost:9000) (pour la gestion des conteneurs)
+- **Weave Scope** : [http://localhost:4040](http://localhost:4040) (pour la visualisation des services)
 
-## Contribuer
-
-Les contributions sont les bienvenues ! Veuillez soumettre une demande de tirage (pull request) pour toute amélioration ou correction.
-
-## License
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
