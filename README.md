@@ -15,7 +15,7 @@
 
 - ✅ Vous avez schématisé l’architecture de votre projet sous format vectoriel (draw.io ou autre web tools) avec notamment :
   - ✅ Les différents composants/services de votre application.
-  ![Architecture](./screen/WeaveScope.PNG)
+  ![Architecture](./Screen/WeaveScope.PNG)
   - ✅ Liens entre ces différents composants/services : protocoles et requêtes types (POST, GET,… en curl/json format).
   - ✅❌ Les ports exposés sont mis en valeur (côté client et côté backend).
 - ✅ Votre README.md à la racine de votre GitHub contient les explications nécessaires pour build et run votre projet ainsi que des screenshots de vos fonctionnalités ainsi que des critères demandés.
@@ -30,7 +30,7 @@
 - ❌ Votre projet dispose d’une documentation (auto-générée, vous le voulez, type OpenAPI/formerly Swagger Specification) documentant les différents endpoints/fonctionnalités importantes du projet.
 - ✅ Vous avez assuré le monitoring en temps réel de vos conteneurs et pouvez partager un dashboard de monitoring via une URL externe (Grafana, Prometheus, Weave Scope…).
 - Votre solution dispose d’un système de gestion de files d’attente ou de push notifications.
-![Architecture](./screen/WeaveScope-Dashboard.PNG)
+![Architecture](./Screen/WeaveScope-Dashboard.PNG)
 
 ## Tests (4 points)
 
