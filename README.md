@@ -58,10 +58,10 @@ docker push dada919/blog_database:latest
 - ✅ Vous avez au minimum 2 branches (main et dev) pour organiser votre travail et tester vos workflows sur les événements de pull request, push et merge.
 - ❌ Vous avez testé vos GitHub workflows en local avec l’outil `act` (screenshot à l'appui).
 - ✅ Vous avez mis en place les GitHub workflows suivants dans votre projet :
-  - Run and test your frontend server.
-  - Run and test your backend server.
-  - Build docker image for your backend server.
-  - Build docker image for your frontend server.
-  - Publish the docker image of your frontend and backend on your public Docker Hub repository.
-  - Add build button (to be more professional).
+  - ✅ Run and test your frontend server.
+  - ✅ Run and test your backend server.
+  - ✅ Build docker image for your backend server.
+  - ✅ Build docker image for your frontend server.
+  - ✅ Publish the docker image of your frontend and backend on your public Docker Hub repository.
+  - ✅ Add build button (to be more professional).
 - ❌ Vous avez automatisé votre déploiement sur un cloud server type Cloudron/Coolify, mettez un screenshot dans votre documentation.
