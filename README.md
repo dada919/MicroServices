@@ -44,7 +44,7 @@ docker push dada919/blog_database:latest
 ## Tests (4 points)
 
 - Vous avez au minimum des tests de conteneurs (bash ou healthcheck) qui :
-  - ❌ Testent la santé de vos conteneurs.
+  - ✅ Testent la santé de vos conteneurs.
   - ✅ Testent le ping de vos applications (frontend / backend).
   - ✅ Testent le bon fonctionnement de votre base de données.
 - ✅ Vous avez testé unitairement au minimum 2 composants de votre code base.
