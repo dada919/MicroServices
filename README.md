@@ -27,9 +27,10 @@
 
 - ❌ Votre projet dispose d’un service de reverse proxy type Nginx ou Traefik.
 - ❌ Vous avez mis en place SSL et HTTPS avec des certificats Let’s Encrypt.
-- ❌ Votre projet dispose d’une documentation (auto-générée, vous le voulez, type OpenAPI/formerly Swagger Specification) documentant les différents endpoints/fonctionnalités importantes du projet.
+- ✅ Votre projet dispose d’une documentation (auto-générée, vous le voulez, type OpenAPI/formerly Swagger Specification) documentant les différents endpoints/fonctionnalités importantes du projet.
+- **URL d'accès** : [Swagger](http://localhost:3001/api-docs/)
 - ✅ Vous avez assuré le monitoring en temps réel de vos conteneurs et pouvez partager un dashboard de monitoring via une URL externe (Grafana, Prometheus, Weave Scope…).
-- Votre solution dispose d’un système de gestion de files d’attente ou de push notifications.
+- ❌ Votre solution dispose d’un système de gestion de files d’attente ou de push notifications.
 ![Architecture](./Screen/WeaveScope-Dashboard.PNG)
 
 
@@ -37,7 +38,7 @@
 
 - Vous avez au minimum des tests de conteneurs (bash ou healthcheck) qui :
   - ❌ Testent la santé de vos conteneurs.
-  - ❌ Testent le ping de vos applications (frontend / backend).
+  - ✅ Testent le ping de vos applications (frontend / backend).
   - ✅ Testent le bon fonctionnement de votre base de données.
 - ✅ Vous avez testé unitairement au minimum 2 composants de votre code base.
 - ❌ Vous avez mis en place des tests de montée en charge simples de vos services.

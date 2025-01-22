@@ -2,10 +2,61 @@ require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+// Swagger configuration
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'API de Blog',
+            version: '1.0.0',
+            description: 'Documentation de l\'API pour gérer les blogs',
+        },
+        servers: [
+            {
+                url: 'http://localhost:3001', // Remplacez par l'URL de votre serveur
+            },
+        ],
+    },
+    apis: ['./app.js'], // Chemin vers ce fichier pour documenter les routes
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Blog:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: Identifiant unique du blog (AUTO_INCREMENT, PRIMARY KEY)
+ *         titre:
+ *           type: string
+ *           description: Titre du blog (NOT NULL)
+ *         description:
+ *           type: string
+ *           description: Description du blog (NULLABLE)
+ *         image_url:
+ *           type: string
+ *           description: URL de l'image associée au blog (NULLABLE)
+ *         pseudo:
+ *           type: string
+ *           description: Pseudo de l'auteur du blog (NOT NULL)
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *           description: Date et heure de création du blog (DEFAULT CURRENT_TIMESTAMP)
+ */
 
 const dbConfig = process.env.NODE_ENV === 'test' 
   ? {
@@ -34,6 +85,17 @@ function executeQuery(sql, params = []) {
     });
 }
 
+/**
+ * @swagger
+ * /test-db:
+ *   get:
+ *     summary: Vérifier la connexion à la base de données
+ *     responses:
+ *       200:
+ *         description: Connexion réussie
+ *       500:
+ *         description: Erreur lors de la connexion à la base de données
+ */
 app.get('/test-db', async (req, res) => {
     try {
         await executeQuery('SELECT 1');
@@ -44,6 +106,17 @@ app.get('/test-db', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /all-blogs:
+ *   get:
+ *     summary: Récupérer tous les blogs
+ *     responses:
+ *       200:
+ *         description: Une liste de blogs
+ *       500:
+ *         description: Erreur lors de la récupération des blogs
+ */
 app.get('/all-blogs', async (req, res) => {
     try {
         const results = await executeQuery('SELECT * FROM blog');
@@ -54,6 +127,23 @@ app.get('/all-blogs', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /blogs:
+ *   post:
+ *     summary: Ajouter un nouveau blog
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Blog'
+ *     responses:
+ *       201:
+ *         description: Blog ajouté avec succès
+ *       500:
+ *         description: Erreur lors de l'ajout du blog
+ */
 app.post('/blogs', async (req, res) => {
     try {
         const { titre, description, image_url, pseudo } = req.body;
@@ -66,6 +156,26 @@ app.post('/blogs', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /blogs/{id}:
+ *   get:
+ *     summary: Récupérer un blog par ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID du blog à récupérer
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Blog trouvé
+ *       404:
+ *         description: Aucun blog trouvé avec cet ID
+ *       500:
+ *         description: Erreur lors de la récupération du blog
+ */
 app.get('/blogs/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -81,6 +191,41 @@ app.get('/blogs/:id', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /blogs/{id}:
+ *   put:
+ *     summary: Mettre à jour un blog par ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID du blog à mettre à jour
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               titre:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               image_url:
+ *                 type: string
+ *               pseudo:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Blog mis à jour avec succès
+ *       404:
+ *         description: Aucun blog trouvé avec cet ID
+ *       500:
+ *         description: Erreur lors de la mise à jour du blog
+ */
 app.put('/blogs/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -94,6 +239,26 @@ app.put('/blogs/:id', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /blogs/{id}:
+ *   delete:
+ *     summary: Supprimer un blog par ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID du blog à supprimer
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Blog supprimé avec succès
+ *       404:
+ *         description: Aucun blog trouvé avec cet ID
+ *       500:
+ *         description: Erreur lors de la suppression du blog
+ */
 app.delete('/blogs/:id', async (req, res) => {
     try {
         const { id } = req.params;

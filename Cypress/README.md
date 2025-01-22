@@ -4,15 +4,8 @@
 
 Pour exécuter les tests Cypress, suivez les étapes ci-dessous :
 
-### 1. Accédez au répertoire Cypress
 
-Ouvrez votre terminal et naviguez vers le répertoire où se trouve Cypress :
-
-```bash
-cd Cypress
-```
-
-### 2. Lancer Cypress
+### 1. Lancer Cypress
 
 Une fois dans le répertoire, vous pouvez lancer Cypress avec la commande suivante :
 
@@ -22,7 +15,8 @@ npx cypress open
 
 Cette commande ouvrira l'interface graphique de Cypress.
 
-### 3. Exécuter les Tests
+
+### 2. Exécuter les Tests
 
 Dans l'interface de Cypress, cliquez sur le fichier de test que vous souhaitez exécuter (`blog.spec.js`). Cypress exécutera le test et affichera les résultats dans l'interface.
 

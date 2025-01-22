@@ -38,7 +38,7 @@
 
     cy.contains('Blog de test');
 
-    cy.contains('Mon nouveau blog').parents('.blog-item').find('button').click();
+    cy.contains('Blog de test').parents('.blog-item').find('button').click();
 
     cy.contains('Confirmez la suppression de ce blog ?').should('be.visible');
 

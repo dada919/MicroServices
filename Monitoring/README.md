@@ -27,6 +27,7 @@ Une fois que les conteneurs sont en cours d'exécution, vous pouvez accéder aux
 - **Port** : 3001
 - **URL d'accès** : [http://localhost:3001](http://localhost:3001)
 - **Description** : Ce port est utilisé pour l'API backend.
+- **URL d'accès Swagger** : [http://localhost:3001/api-docs/](http://localhost:3001/api-docs/)
 
 ### Base de Données (MySQL)
 - **Port** : 3306
