@@ -35,10 +35,10 @@ docker push dada919/blog_database:latest
 - ❌ Votre projet dispose d’un service de reverse proxy type Nginx ou Traefik.
 - ❌ Vous avez mis en place SSL et HTTPS avec des certificats Let’s Encrypt.
 - ✅ Votre projet dispose d’une documentation (auto-générée, vous le voulez, type OpenAPI/formerly Swagger Specification) documentant les différents endpoints/fonctionnalités importantes du projet.
-- **URL d'accès** : [Swagger](http://localhost:3001/api-docs/)
+  **URL d'accès** : [Swagger](http://localhost:3001/api-docs/)
 - ✅ Vous avez assuré le monitoring en temps réel de vos conteneurs et pouvez partager un dashboard de monitoring via une URL externe (Grafana, Prometheus, Weave Scope…).
+  ![Architecture](./Screen/WeaveScope-Dashboard.PNG)
 - ❌ Votre solution dispose d’un système de gestion de files d’attente ou de push notifications.
-![Architecture](./Screen/WeaveScope-Dashboard.PNG)
 
 
 ## Tests (4 points)
