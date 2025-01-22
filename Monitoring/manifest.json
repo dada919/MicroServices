@@ -1,0 +1,35 @@
+{
+    "id": "com.yourusername.monitoring",
+    "title": "Monitoring",
+    "description": "Une application de gestion de blogs",
+    "version": "1.0.0",
+    "author": "Votre Nom",
+    "healthCheckPath": "/health",  // Assurez-vous d'avoir un endpoint de santé
+    "httpPort": 5100,  // Port exposé pour le frontend
+    "docker": {
+        "image": "yourusername/monitoring-frontend:latest",  // Remplacez par l'image de votre frontend
+        "websocket": true
+    },
+    "addons": {
+        "mysql": {
+            "image": "mysql:8.0",
+            "port": 3306,
+            "env": {
+                "MYSQL_ROOT_PASSWORD": "root",
+                "MYSQL_DATABASE": "blogdb",
+                "MYSQL_USER": "myuser",
+                "MYSQL_PASSWORD": "admin1234"
+            }
+        }
+    },
+    "services": {
+        "backend": {
+            "image": "yourusername/monitoring-backend:latest",  // Remplacez par l'image de votre backend
+            "httpPort": 3001,  // Port exposé pour le backend
+            "env": {
+                "NODE_ENV": "production",
+                "VITE_API_URL": "http://localhost:3001"  // Assurez-vous que cela correspond à votre configuration
+            }
+        }
+    }
+}

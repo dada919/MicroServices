@@ -1,5 +1,7 @@
 # Projet MicroServices
 
+![GitHub Status](https://github.com/dada919/MicroServices/actions/workflows/main.yml/badge.svg)
+
 ## Composants techniques de base (4 points)
 
  - ✅ Votre projet contient un frontend avec au minimum deux routes.
