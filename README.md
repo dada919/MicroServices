@@ -1,6 +1,6 @@
 # Projet MicroServices
 
-![GitHub Status](https://github.com/dada919/MicroServices/actions/workflows/main.yml/badge.svg)
+![GitHub Status](https://github.com/dada919/MicroServices/actions/workflows/run.yml/badge.svg)
 
 ## Composants techniques de base (4 points)
 
