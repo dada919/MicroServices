@@ -8,6 +8,11 @@
  - ✅ Votre projet contient au moins 2 Dockerfiles et un fichier `docker-compose.yml`.
  - ✅ Votre projet contient un réseau Docker.
  - ✅ Vous avez poussé au moins 2 images Docker sur un registre de conteneurs (type Docker Hub).
+ ```bash
+docker push dada919/blog_frontend:latest
+docker push dada919/blog_backend:latest
+docker push dada919/blog_database:latest
+```
  - ✅ Votre projet est accessible en ligne publiquement sur un gestionnaire de version (type GitHub, Bitbucket, GitLab…). 
 
 
